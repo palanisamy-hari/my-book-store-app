@@ -17,7 +17,7 @@ let MongoStore = require('connect-mongo');
 
 require('./config/passport');
 
-const PORT = process.env.PORT || 9000;
+// const PORT = process.env.PORT || 9000;
 const MONGODB_URI = 'mongodb+srv://mongo_user:gC2IfDEuQedHq0Vj@cluster0.eagru.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 const OPTS = { useNewUrlParser: true, useUnifiedTopology: true };
 mongoose.connect(MONGODB_URI, OPTS, function (err) {
