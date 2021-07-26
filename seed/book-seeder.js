@@ -25,10 +25,10 @@ let books = [
             price: 20
         }), new Book(
         {
-            imagePath: 'https://www.mercedes-benz.com/en/classic/museum/mercedes-benz-500-e/_jcr_content/image/MQ6-12-image-20190114135819/classic-museum-begehrter-youngtimer_1180x763_v2-1180x763.jpeg',
-            title: 'Jane Eyre',
-            Author: 'Charlotte Brontë',
-            description: 'Jane Eyre is a novel by English writer Charlotte Brontë, published under the pen name "Currer Bell", on 16 October 1847',
+            imagePath: 'https://upload.wikimedia.org/wikipedia/en/thumb/6/6b/Harry_Potter_and_the_Philosopher%27s_Stone_Book_Cover.jpg/220px-Harry_Potter_and_the_Philosopher%27s_Stone_Book_Cover.jpg',
+            title: 'Harry Potter and the Philosopher\'s Stone',
+            Author: 'J. K. Rowling',
+            description: 'Harry Potter and the Philosopher\'s Stone is a fantasy novel written by British author J. K. Rowling. The first novel in the Harry Potter series and Rowling\'s debut novel.',
             price: 20
         })]
 
