@@ -1,17 +1,31 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var expressHbs = require('express-handlebars');
-var logger = require('morgan');
+let createError = require('http-errors');
+let express = require('express');
+let path = require('path');
+let cookieParser = require('cookie-parser');
+let expressHbs = require('express-handlebars');
+let logger = require('morgan');
+let mongoose = require('mongoose');
+let indexRouter = require('./routes/index');
+let userRouter = require('./routes/user');
+let session = require('express-session');
+let passport = require('passport');
+let flash = require('connect-flash');
+let validator = require('express-validator');
+let app = express();
+require('dotenv').config({ path: './.env' });
+let MongoStore = require('connect-mongo');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+require('./config/passport');
 
-var app = express();
+const PORT = process.env.PORT || 9000;
+const MONGODB_URI = 'mongodb+srv://mongo_user:gC2IfDEuQedHq0Vj@cluster0.eagru.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+const OPTS = { useNewUrlParser: true, useUnifiedTopology: true };
+mongoose.connect(MONGODB_URI, OPTS, function (err) {
+  if (err) { return console.log(err); }
+});
 
 // view engine setup
-app.engine('.hbs', expressHbs({defaultLayout: 'layout', extname: '.hbs'}));
+app.engine('.hbs', expressHbs({ defaultLayout: 'layout', extname: '.hbs'}));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
@@ -21,8 +35,33 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(session({
+  secret: 'mysupersecret',
+  resave: false,
+  saveUninitialized: false,
+  store: MongoStore.create({
+    mongoUrl: MONGODB_URI
+  }),
+  cookie: { maxAge: 180 * 60 * 1000 }
+}));
+
+app.use(flash());
+app.use(validator());
+
+// Passport Authentication
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Custom middleware to pass authentication state and session to views
+app.use(function (req, res, next) {
+  res.locals.signin = req.isAuthenticated();
+  res.locals.session = req.session;
+  next();
+});
+
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/user', userRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -40,4 +79,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+
 module.exports = app;
+app.listen(PORT);
+console.log('Started BookStore application on port ' + PORT);

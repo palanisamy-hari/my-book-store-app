@@ -1,0 +1,46 @@
+<h1>{{title}}</h1>
+<div class="row">
+    <div class="col-sm-6 col-md-4 col-md-offset-4 col-sm-offset-3">
+        <div id="success" class="alert alert-success" {{#if noMessages}}hidden{{/if}}>
+            {{ successMsg }}
+        </div>
+    </div>
+</div>
+{{# each books }}
+    <div class="row">
+        {{# each this }}
+            <div class="clearfix thumbnail is-table-row">
+                <div class="col-md-4 col">
+                    <div class="">
+                        <div class="caption">
+                            <h3>{{ this.title }}</h3>
+                            <div class="clearfix">
+                                <img src="{{ this.imagePath }}" alt="..."
+                                     class="img-responsive rounded mx-auto d-block">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="">
+                        <div class="caption clearfix h-100">
+                            <p class="description">{{{this.description}}}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="">
+                        <div class="caption clearfix">
+                            <div class="price pull-left"><i class="fa fa-tag" aria-hidden="true"></i> {{ this.price }} $
+                            </div>
+                            <a href="/add-to-cart/{{this._id}}" class="btn btn-default pull-right" id={{ this.title }}
+                               role="button"><i aria-hidden="true"></i> Add to cart</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+{{/each}}
