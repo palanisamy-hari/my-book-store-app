@@ -12,7 +12,7 @@ resources:
 
 jobs:
 
-  - name: deploy-app
+  - name: deploy-qa-app
     serial: true
     plan:
       - get: source-code
@@ -42,5 +42,81 @@ jobs:
                   login $HEROKU_EMAIL
                   password $HEROKU_TOKEN
                 EOF
-                git push   https://git.heroku.com/simple-book-store-app.git main:refs/heads/main
+                git push https://git.heroku.com/simple-book-store-app-qa.git main:refs/heads/main
 
+  - name: ruby-ui-test
+    serial: true
+    public: true
+    plan:
+      - get: source-code
+        trigger: true
+        passed: [deploy-qa-app]
+      - task: run-tests
+        params:
+          SELENIUM-GRID-HOST: ((selenium-grid-host))
+        config:
+          image_resource:
+            type: registry-image
+            source: { repository: ruby, tag: 2.5.8 }
+          platform: linux
+          inputs:
+            - name: source-code
+          run:
+            path: /bin/bash
+            args:
+              - -c
+              - |
+                cd "source-code/ci/ci-test"
+                bundle install
+                bundle exec rake run_test[qa,chrome_remote,@test_case_1]
+      - task: run-tests
+        params:
+          SELENIUM-GRID-HOST: ((selenium-grid-host))
+        config:
+          image_resource:
+            type: registry-image
+            source: { repository: ruby, tag: 2.5.8 }
+          platform: linux
+          inputs:
+            - name: source-code
+          run:
+            path: /bin/bash
+            args:
+              - -c
+              - |
+                cd "source-code/ci/ci-test"
+                bundle install
+                bundle exec rake run_test[qa,chrome_remote,@test_case_1]
+
+  - name: deploy-prod-app
+    serial: true
+    plan:
+      - get: source-code
+        trigger: true
+        passed: [ruby-ui-test]
+      - task: deploy-app-heroku
+        params:
+          HEROKU_EMAIL: ((heroku-email))
+          HEROKU_TOKEN: ((heroku-token))
+        config:
+          platform: linux
+
+          image_resource:
+            type: docker-image
+            source: { repository: concourse/bosh-cli }
+
+          inputs:
+            - name: source-code
+
+          run:
+            path: sh
+            dir: source-code
+            args:
+              - -exc
+              - |
+                cat > /root/.netrc <<EOF
+                machine git.heroku.com
+                  login $HEROKU_EMAIL
+                  password $HEROKU_TOKEN
+                EOF
+                git push https://git.heroku.com/simple-book-store-app.git main:refs/heads/main

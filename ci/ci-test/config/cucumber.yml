@@ -1,0 +1,8 @@
+# default profile:
+default: --profile qa
+
+
+# env profiles
+local: ENVIRONMENT=local ENDPOINT=http://localhost:5000/ BROWSER=chrome_remote
+qa: ENVIRONMENT=dev ENDPOINT=https://simple-book-store-app-qa.herokuapp.com/ BROWSER=chrome_remote
+prod: ENVIRONMENT=prod ENDPOINT=https://simple-book-store-app.herokuapp.com/ BROWSER=chrome_remote

@@ -1,0 +1,36 @@
+require 'cucumber/rake/task'
+
+def get_cucumber_opts_for_task(task_name, path = nil)
+  tags = "-r features --tags 'not @skip'"
+  html_output = "--format html --out features/build_results/#{task_name}.html"
+  # returning cucumber opts
+  "#{path} #{tags} --format pretty #{html_output}"
+end
+
+def build_cucumber_task_for_tests(folder)
+  Dir.foreach(folder).each do |item|
+    next if item == '.' or item == '..'
+    if File.directory?("#{folder}/#{item}")
+      build_cucumber_task_for_tests("#{folder}/#{item}")
+      next
+    end
+    feature_name = File.basename(item, '.feature').to_sym
+    cucumber_opts_for_task = get_cucumber_opts_for_task(feature_name, "#{folder}/#{item}")
+
+    Cucumber::Rake::Task.new(feature_name) do |task|
+      task.cucumber_opts = cucumber_opts_for_task
+    end
+  end
+end
+
+build_cucumber_task_for_tests('features/scenarios')
+
+task :run_test, :env, :browser, :tags do |task, args|
+  puts "rake task: #{task}"
+  ENV['ENVIRONMENT'] = args[:env]
+  ENV['BROWSER'] = args[:browser]
+  cucumber_test_tags = args[:tags].gsub('-',' ')
+  Cucumber::Rake::Task.new(:run_test) { |cucumber_task|
+    cucumber_task.cucumber_opts = %Q{ --format pretty -tags '#{cucumber_test_tags}' --profile #{ENV['ENVIRONMENT']}}
+  }
+end
