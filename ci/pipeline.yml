@@ -50,50 +50,51 @@ jobs:
     plan:
       - get: source-code
         trigger: true
-        passed: [deploy-qa-app]
-      - task: run-tests
-        params:
-          SELENIUM-GRID-HOST: ((selenium-grid-host))
-        config:
-          image_resource:
-            type: registry-image
-            source: { repository: ruby, tag: 2.5.8 }
-          platform: linux
-          inputs:
-            - name: source-code
-          run:
-            path: /bin/bash
-            args:
-              - -c
-              - |
-                cd "source-code/ci/ci-test"
-                bundle install
-                bundle exec rake run_test[qa,chrome_remote,@test_case_1]
-      - task: run-tests
-        params:
-          SELENIUM-GRID-HOST: ((selenium-grid-host))
-        config:
-          image_resource:
-            type: registry-image
-            source: { repository: ruby, tag: 2.5.8 }
-          platform: linux
-          inputs:
-            - name: source-code
-          run:
-            path: /bin/bash
-            args:
-              - -c
-              - |
-                cd "source-code/ci/ci-test"
-                bundle install
-                bundle exec rake run_test[qa,chrome_remote,@test_case_1]
+        passed: [ deploy-qa-app ]
+      - in_parallel:
+          - task: run-tests
+            params:
+              SELENIUM-GRID-HOST: ((selenium-grid-host))
+            config:
+              image_resource:
+                type: registry-image
+                source: { repository: ruby, tag: 2.5.8 }
+              platform: linux
+              inputs:
+                - name: source-code
+              run:
+                path: /bin/bash
+                args:
+                  - -c
+                  - |
+                    cd "source-code/ci/ci-test"
+                    bundle install
+                    bundle exec rake run_test[qa,chrome_remote,@test_case_1]
+          - task: run-tests
+            params:
+              SELENIUM-GRID-HOST: ((selenium-grid-host))
+            config:
+              image_resource:
+                type: registry-image
+                source: { repository: ruby, tag: 2.5.8 }
+              platform: linux
+              inputs:
+                - name: source-code
+              run:
+                path: /bin/bash
+                args:
+                  - -c
+                  - |
+                    cd "source-code/ci/ci-test"
+                    bundle install
+                    bundle exec rake run_test[qa,chrome_remote,@test_case_1]
 
   - name: deploy-prod-app
     serial: true
     plan:
       - get: source-code
         trigger: true
-        passed: [ruby-ui-test]
+        passed: [ ruby-ui-test ]
       - task: deploy-app-heroku
         params:
           HEROKU_EMAIL: ((heroku-email))
