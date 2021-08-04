@@ -6,6 +6,6 @@ task :run_test, :env, :browser, :tags do |task, args|
   ENV['BROWSER'] = args[:browser]
   cucumber_test_tags = args[:tags].gsub('-',' ')
   Cucumber::Rake::Task.new(:run_test) { |cucumber_task|
-    cucumber_task.cucumber_opts = %Q{ --format pretty -tags '#{cucumber_test_tags}' --profile #{ENV['ENVIRONMENT']}}
+    cucumber_task.cucumber_opts = %Q{ --format pretty --tags '#{cucumber_test_tags}' --profile #{ENV['ENVIRONMENT']}}
   }
 end
