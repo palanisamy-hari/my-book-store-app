@@ -33,9 +33,9 @@ class BrowserUtilities
                when 'chrome_headless'
                  Watir::Browser.new(:chrome, headless: true, options: browser_opts)
                when 'chrome_remote'
-                 Watir::Browser.new :chrome, url: "http://localhost:4444/wd/hub" , options: {prefs: prefs, options: { 'useAutomationExtension' => false } }
+                 Watir::Browser.new :chrome, url: "http://192.168.0.21:4444/wd/hub" , options: {prefs: prefs, options: { 'useAutomationExtension' => false } }
                when 'firefox_remote'
-                 Watir::Browser.new(:firefox, options: browser_opts, url: 'http://localhost:4444/wd/hub')
+                 Watir::Browser.new(:firefox, options: browser_opts, url: 'http://192.168.0.21:4444/wd/hub')
                when 'firefox'
                  firefox_driver_path = "#{File.dirname(__FILE__)}/../driver/geckodriver.exe"
                  Selenium::WebDriver::Firefox::Service.driver_path = firefox_driver_path
