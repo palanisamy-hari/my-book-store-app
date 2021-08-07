@@ -58,7 +58,7 @@ jobs:
             config:
               image_resource:
                 type: registry-image
-                source: { repository: ruby, tag: 2.5.8 }
+                source: { repository: hariprakashohio/ruby-test-base, tag: alpine }
               platform: linux
               inputs:
                 - name: source-code
@@ -68,7 +68,6 @@ jobs:
                   - -c
                   - |
                     cd "source-code/ci/ci-test"
-                    bundle install
                     bundle exec rake run_test[qa,chrome_remote,@test_case_1]
           - task: run-tests
             params:
@@ -76,7 +75,7 @@ jobs:
             config:
               image_resource:
                 type: registry-image
-                source: { repository: ruby, tag: 2.5.8 }
+                source: { repository: hariprakashohio/ruby-test-base, tag: alpine }
               platform: linux
               inputs:
                 - name: source-code
@@ -86,7 +85,6 @@ jobs:
                   - -c
                   - |
                     cd "source-code/ci/ci-test"
-                    bundle install
                     bundle exec rake run_test[qa,chrome_remote,@test_case_1]
 
   - name: deploy-prod-app
