@@ -3,6 +3,6 @@ default: --profile qa --publish-quiet
 
 
 # env profiles
-local: ENVIRONMENT=local ENDPOINT=http://localhost:5000/ BROWSER=chrome_remote
-qa: ENVIRONMENT=qa ENDPOINT=https://simple-book-store-app-qa.herokuapp.com/ BROWSER=chrome_remote
-prod: ENVIRONMENT=prod ENDPOINT=https://simple-book-store-app.herokuapp.com/ BROWSER=chrome_remote
+local: ENVIRONMENT=local ENDPOINT=http://localhost:5000/ BROWSER=chrome_remote CUCUMBER_PUBLISH_QUIET=true
+qa: ENVIRONMENT=qa ENDPOINT=https://simple-book-store-app-qa.herokuapp.com/ BROWSER=chrome_remote CUCUMBER_PUBLISH_QUIET=true
+prod: ENVIRONMENT=prod ENDPOINT=https://simple-book-store-app.herokuapp.com/ BROWSER=chrome_remote CUCUMBER_PUBLISH_QUIET=true
