@@ -4,5 +4,5 @@ default: --profile qa --publish-quiet
 
 # env profiles
 local: ENVIRONMENT=local ENDPOINT=http://localhost:5000/ BROWSER=chrome_remote
-qa: ENVIRONMENT=qa ENDPOINT=https://simple-book-store-app-qa.herokuapp.com/ BROWSER=chrome_remote SELENIUM-GRID-HOST=http://18.222.40.22:4444/
-prod: ENVIRONMENT=prod ENDPOINT=https://simple-book-store-app.herokuapp.com/ BROWSER=chrome_remote SELENIUM-GRID-HOST=http://18.222.40.22:4444/
+qa: ENVIRONMENT=qa ENDPOINT=https://simple-book-store-app-qa.herokuapp.com/ BROWSER=chrome_remote
+prod: ENVIRONMENT=prod ENDPOINT=https://simple-book-store-app.herokuapp.com/ BROWSER=chrome_remote
