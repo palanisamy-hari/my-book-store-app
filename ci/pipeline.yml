@@ -54,7 +54,7 @@ jobs:
       - in_parallel:
           - task: run-tests
             params:
-              SELENIUM-GRID-HOST: ((selenium-grid-host))
+              SELENIUM_GRID_HOST: ((selenium-grid-host))
             config:
               image_resource:
                 type: registry-image
@@ -67,11 +67,12 @@ jobs:
                 args:
                   - -c
                   - |
+                    export SELENIUM_GRID_HOST=${SELENIUM-GRID-HOST}
                     cd "source-code/ci/ci-test"
                     bundle exec rake run_test[qa,chrome_remote,@test_case_1]
           - task: run-tests
             params:
-              SELENIUM-GRID-HOST: ((selenium-grid-host))
+              SELENIUM_GRID_HOST: ((selenium-grid-host))
             config:
               image_resource:
                 type: registry-image
@@ -84,6 +85,7 @@ jobs:
                 args:
                   - -c
                   - |
+                    export SELENIUM_GRID_HOST=${SELENIUM-GRID-HOST}
                     cd "source-code/ci/ci-test"
                     bundle exec rake run_test[qa,chrome_remote,@test_case_1]
 
