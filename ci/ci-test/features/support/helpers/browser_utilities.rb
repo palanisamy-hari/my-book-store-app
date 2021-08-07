@@ -12,6 +12,7 @@ class BrowserUtilities
   def self.launch_browser(browser_type = 'chrome', remote = false, headless = false)
 
     p "browser-type: #{browser_type}"
+    p "Env: #{ENV['ENVIRONMENT']}"
     p "remote: #{remote}"
     p "headless: true #{headless}" if browser_type == 'chrome_headless' || headless
 
