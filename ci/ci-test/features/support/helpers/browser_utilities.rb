@@ -24,6 +24,7 @@ class BrowserUtilities
         'default_content_setting_values' => { 'automatic_downloads' => 1 }
       }
     }
+    remote_url = ENV['SELENIUM-GRID-HOST'] ||= "http://localhost:4444/wd/hub"
 
     @browser = case browser_type.downcase
                when 'chrome'
@@ -33,9 +34,9 @@ class BrowserUtilities
                when 'chrome_headless'
                  Watir::Browser.new(:chrome, headless: true, options: browser_opts)
                when 'chrome_remote'
-                 Watir::Browser.new :chrome, url: "http://192.168.0.21:4444/wd/hub" , options: {prefs: prefs, options: { 'useAutomationExtension' => false } }
+                 Watir::Browser.new :chrome, url: remote_url , options: {prefs: prefs, options: { 'useAutomationExtension' => false } }
                when 'firefox_remote'
-                 Watir::Browser.new(:firefox, options: browser_opts, url: 'http://192.168.0.21:4444/wd/hub')
+                 Watir::Browser.new(:firefox, options: browser_opts, url: remote_url)
                when 'firefox'
                  firefox_driver_path = "#{File.dirname(__FILE__)}/../driver/geckodriver.exe"
                  Selenium::WebDriver::Firefox::Service.driver_path = firefox_driver_path
