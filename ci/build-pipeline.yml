@@ -1,0 +1,51 @@
+resources:
+  - name: source
+    type: git
+    icon: git
+    check_every: 2m
+    source:
+      uri: "https://github.com/palanisamy-hari/my-book-store-app.git"
+      branch: main
+      username: ((git-user-name))
+      password: ((git-password))
+
+  - name: base-nodejs-image
+    type: docker-image
+    icon: docker
+    check_every: 24h
+    source:
+      repository: node
+      tag: 16-alpine
+
+  - name: image
+    type: docker-image
+    icon: docker
+    check_every: 8760h
+    source:
+      username: ((docker-user-name))
+      password: ((docker-password))
+      repository: hariprakashohio/my-node-js-app
+      tag: latest
+
+jobs:
+  - name: build-image
+    public: true
+    build_log_retention:
+      days: 7
+      builds: 10
+    serial: true
+    plan:
+      - in_parallel:
+          - get: source
+            params: {depth: 1}
+          - get: base-nodejs-image
+            params:
+              save: true
+      - put: build-publish-image
+        resource: image
+        params:
+          load_base: base-nodejs-image
+          build: source
+          build_args:
+            BASE_IMAGE: node:16-alpine
+        get_params: {skip_download: true}

@@ -1,9 +1,9 @@
-ARG BASE_IMAGE
-FROM ${BASE_IMAGE}
+FROM ruby:2.6
 
 WORKDIR /workspace
 
-COPY Gemfile* ./
+COPY Gemfile ./
 
 RUN gem install bundler -v "2.2.16"
+RUN gem install ffi
 RUN bundle install
