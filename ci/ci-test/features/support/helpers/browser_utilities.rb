@@ -25,7 +25,7 @@ class BrowserUtilities
         'default_content_setting_values' => { 'automatic_downloads' => 1 }
       }
     }
-    remote_url = ENV['SELENIUM-GRID-HOST'] ||= "http://localhost:4444/wd/hub"
+    remote_url = ENV['SELENIUM_GRID_HOST'] ||= "http://3.16.124.52:4444/"
 
     @browser = case browser_type.downcase
                when 'chrome'
