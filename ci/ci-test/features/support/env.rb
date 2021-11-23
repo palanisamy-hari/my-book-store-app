@@ -3,5 +3,8 @@ require 'require_all'
 require 'page-object'
 require 'active_support'
 require 'rspec'
+require 'logger'
+require 'faker'
 
-ENV['FILE_NAME'] = 'test.mp4'
+
+ENV['ENDPOINT'] ||= 'http://localhost:5000'

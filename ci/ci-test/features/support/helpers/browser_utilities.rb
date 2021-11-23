@@ -16,34 +16,25 @@ class BrowserUtilities
     p "remote: #{remote}"
     p "headless: true #{headless}" if browser_type == 'chrome_headless' || headless
 
-    prefs = {
-      'download' => {
-        'prompt_for_download' => false,
-        'directory_directory' => false
-      },
-      'profile' => {
-        'default_content_setting_values' => { 'automatic_downloads' => 1 }
-      }
-    }
     remote_url = ENV['SELENIUM_GRID_HOST'] ||= "http://3.16.124.52:4444/"
 
     @browser = case browser_type.downcase
                when 'chrome'
                  chrome_driver_path = "#{File.dirname(__FILE__)}/../driver/chromedriver.exe"
                  Selenium::WebDriver::Chrome::Service.driver_path = chrome_driver_path
-                 Watir::Browser.new(:chrome, headless: false, options: browser_opts)
+                 Watir::Browser.new(:chrome, headless: false)
                when 'chrome_headless'
-                 Watir::Browser.new(:chrome, headless: true, options: browser_opts)
+                 Watir::Browser.new(:chrome, headless: true)
                when 'chrome_remote'
-                 Watir::Browser.new :chrome, url: remote_url , options: {prefs: prefs, options: { 'useAutomationExtension' => false } }
+                 Watir::Browser.new :chrome, url: remote_url , options: { 'useAutomationExtension' => false }
                when 'firefox_remote'
                  Watir::Browser.new(:firefox, options: browser_opts, url: remote_url)
                when 'firefox'
                  firefox_driver_path = "#{File.dirname(__FILE__)}/../driver/geckodriver.exe"
                  Selenium::WebDriver::Firefox::Service.driver_path = firefox_driver_path
-                 Watir::Browser.new(:firefox, headless: false, options: browser_opts)
+                 Watir::Browser.new(:firefox, headless: false, options: prefs)
                when 'firefox_headless'
-                 Watir::Browser.new(:firefox, headless: true, options: browser_opts)
+                 Watir::Browser.new(:firefox, headless: true, options: prefs)
                else
                  raise "Browser type not found features/support/helpers/browser_utilities.rb:#{__LINE__}"
                end

@@ -9,5 +9,6 @@ gem 'faker'
 gem 'ffi'
 gem 'rspec'
 gem 'rake'
+gem 'logger'
 
 gem 'rexml'
