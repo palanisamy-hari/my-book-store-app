@@ -18,15 +18,12 @@
             <li class="nav-item">
                 <a class="nav-link" href="#">Pricing</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/shopping-cart/">
-                    <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Cart
-                    <span class="badge">{{session.cart.totalQty}}</span></a>
-            </li>
         </ul>
         <ul class="navbar-nav navbar-right ml-auto">
             {{# if signin}}
-                <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-shopping-cart"></i> Cart </a></li>
+                <li class="nav-item"><a class="nav-link" href="/shopping-cart/">
+                    <span class="fas fa-shopping-cart" aria-hidden="true"></span> Cart
+                    <span class="badge">{{session.cart.totalQty}}</span></a></li>
                 <li role="separator" class="divider"></li>
                 <li class="nav-item"><a class="nav-link" href="/user/logout"><i class="fas fa-sign-in-alt"></i> Logout
                 </a></li>
