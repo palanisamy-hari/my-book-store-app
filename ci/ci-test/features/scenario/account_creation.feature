@@ -6,7 +6,7 @@ Feature: Login functionality on Sinatra ruby app
     When I click on sign up link
     And I fill the user details
     And I set the "8" length long password for the account
-    And I click on "sign_up" button on signup page
+    And I click on "sign_up_button" on signup page
     Then I land on the "User Profile" page
     And I click on "logout" button on home page
 
