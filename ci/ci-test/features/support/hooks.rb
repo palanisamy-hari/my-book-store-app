@@ -1,5 +1,7 @@
 Before do |scenario|
-  puts scenario.name
+  @sleep_duration = 2
+  @log = Logger.new(STDOUT)
+  @log.info("Scenario name: #{scenario.name}")
   @browser = BrowserUtilities.launch_browser(ENV['BROWSER'])
   BrowserUtilities.resize_browser
 end
@@ -7,11 +9,14 @@ end
 Before do
   @base_page          = BasePage.new @browser
   @login_page         = LoginPage.new @browser
-  @my_activities_page = BooksPage.new @browser
+  @books_page         = BooksPage.new @browser
   @home_page          = HomePage.new @browser
+  @signup_page        = SignupPage.new @browser
+  @cart_page          = CartPage.new @browser
+  @checkout_page      = CheckoutPage.new @browser
 end
 
 After do |scenario|
-  puts "Scenario Passed?: #{ scenario.passed?}"
+  @log.info("Scenario Passed?: #{ scenario.passed?}")
   @browser.close
 end

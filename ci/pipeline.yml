@@ -54,12 +54,11 @@ jobs:
             args:
               - -ec
               - |
-                echo "sonar"
-#                sonar-scanner \
-#                  -Dsonar.projectKey=my-node-js-app \
-#                  -Dsonar.sources=. \
-#                  -Dsonar.host.url=$SONAR_HOST \
-#                  -Dsonar.login=$SONAR_TOKEN
+                sonar-scanner \
+                  -Dsonar.projectKey=book-store \
+                  -Dsonar.sources=. \
+                  -Dsonar.host.url=$SONAR_HOST \
+                  -Dsonar.login=$SONAR_TOKEN
 
   - name: build-docker-image
     public: true
@@ -139,9 +138,9 @@ jobs:
               run:
                 path: /bin/bash
                 args:
-                  - -c
+                  - -exc
                   - |
-                    export SELENIUM_GRID_HOST=${SELENIUM-GRID-HOST}
+                    export SELENIUM_GRID_HOST=$SELENIUM_GRID_HOST
                     cd "source-code/ci/ci-test"
                     bundle exec rake run_test[qa,chrome_remote,@test_case_1]
           - task: run-tests
@@ -157,9 +156,9 @@ jobs:
               run:
                 path: /bin/bash
                 args:
-                  - -c
+                  - -exc
                   - |
-                    export SELENIUM_GRID_HOST=${SELENIUM-GRID-HOST}
+                    export SELENIUM_GRID_HOST=$SELENIUM_GRID_HOST
                     cd "source-code/ci/ci-test"
                     bundle exec rake run_test[qa,chrome_remote,@test_case_1]
 

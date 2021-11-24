@@ -1,3 +1,9 @@
 <p></p>
 <h1>{{title}}</h1>
-<p>Welcome to {{title}}!!</p>
+{{# if order_placed}}
+    <h3>Thank you, Order Placed!!</h3>
+{{ else }}
+    <h3>Welcome to {{title}}!!</h3>
+{{/if}}
+
+
