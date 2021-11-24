@@ -26,7 +26,7 @@ class BrowserUtilities
                when 'chrome_headless'
                  Watir::Browser.new(:chrome, headless: true)
                when 'chrome_remote'
-                 Watir::Browser.new :chrome, url: remote_url , options: { 'useAutomationExtension' => false }
+                 Watir::Browser.new :chrome, url: remote_url
                when 'firefox_remote'
                  Watir::Browser.new(:firefox, options: browser_opts, url: remote_url)
                when 'firefox'
