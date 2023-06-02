@@ -1,6 +1,6 @@
 ## Book Store Application
 
-This application was developed using NodeJS and MongoDB Backend Service.
+This application was developed using NodeJS
 
 ## Local execution
 
