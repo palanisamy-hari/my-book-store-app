@@ -1,10 +1,10 @@
 require 'cucumber/rake/task'
 
-task :run_test, :env, :browser, :tags do |task, args|
+task :run_test do |task, args|
   puts "rake task: #{task}"
-  ENV['ENVIRONMENT'] = args[:env]
-  ENV['BROWSER'] = args[:browser]
-  cucumber_test_tags = args[:tags].gsub('-',' ')
+  ENV['ENVIRONMENT'] = 'local'
+  ENV['BROWSER'] = 'edge'
+  cucumber_test_tags = "@test_case_1"
   Cucumber::Rake::Task.new(:run_test) { |cucumber_task|
     cucumber_task.cucumber_opts = %Q{ --format pretty --tags '#{cucumber_test_tags}' --profile #{ENV['ENVIRONMENT']}}
   }

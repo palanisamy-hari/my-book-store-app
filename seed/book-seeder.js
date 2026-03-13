@@ -4,7 +4,7 @@ let Book = require('../models/books');
 let mongoose = require('mongoose')
 
 
-const MONGODB_URL = 'mongodb+srv://mongo_user:gC2IfDEuQedHq0Vj@cluster0.eagru.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+const MONGODB_URL = 'mongodb+srv://palanisamyhariprakash:xONaHU1oi36B4UnF@cluster0.dcvm2dq.mongodb.net/?retryWrites=true&w=majority'
 const OPTS = { useNewUrlParser: true, useUnifiedTopology: true };
 mongoose.connect(MONGODB_URL, OPTS, function (err) {
     if (err) { return console.log(err); }
@@ -30,7 +30,7 @@ let books = [
             Author: 'J. K. Rowling',
             description: 'Harry Potter and the Philosopher\'s Stone is a fantasy novel written by British author J. K. Rowling. The first novel in the Harry Potter series and Rowling\'s debut novel.',
             price: 20
-        })]
+            })]
 
 let done = 0;
 for (let i = 0; i < books.length; i++) {

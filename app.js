@@ -2,7 +2,8 @@ let createError = require('http-errors');
 let express = require('express');
 let path = require('path');
 let cookieParser = require('cookie-parser');
-let expressHbs = require('express-handlebars');
+const expressHbs = require('express-handlebars');
+
 let logger = require('morgan');
 let mongoose = require('mongoose');
 let indexRouter = require('./routes/index');
@@ -17,15 +18,15 @@ let MongoStore = require('connect-mongo');
 
 require('./config/passport');
 
-// const PORT = process.env.PORT || 9000;
-const MONGODB_URI = 'mongodb+srv://mongo_user:gC2IfDEuQedHq0Vj@cluster0.eagru.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+const PORT = process.env.PORT || 9000;
+const MONGODB_URI = 'mongodb+srv://palanisamyhariprakash:xONaHU1oi36B4UnF@cluster0.dcvm2dq.mongodb.net/?retryWrites=true&w=majority'
 const OPTS = { useNewUrlParser: true, useUnifiedTopology: true };
 mongoose.connect(MONGODB_URI, OPTS, function (err) {
   if (err) { return console.log(err); }
 });
 
 // view engine setup
-app.engine('.hbs', expressHbs({ defaultLayout: 'layout', extname: '.hbs'}));
+app.engine('.hbs', expressHbs.engine({ defaultLayout: 'layout', extname: '.hbs'}));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
@@ -81,5 +82,5 @@ app.use(function(err, req, res, next) {
 
 
 module.exports = app;
-// app.listen(PORT);
-// console.log('Started BookStore application on port ' + PORT);
+app.listen(PORT);
+console.log('Started BookStore application on port ' + PORT);

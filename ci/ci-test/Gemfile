@@ -1,7 +1,7 @@
 source 'https://rubygems.org/'
 
-gem 'activesupport'
-gem 'cucumber', '5.3.0'
+# gem 'activesupport'
+gem 'cucumber'
 gem 'page-object'
 gem 'watir'
 gem 'require_all'

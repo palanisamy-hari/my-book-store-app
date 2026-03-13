@@ -16,13 +16,17 @@ class BrowserUtilities
     p "remote: #{remote}"
     p "headless: true #{headless}" if browser_type == 'chrome_headless' || headless
 
-    remote_url = ENV['SELENIUM_GRID_HOST'] ||= "http://3.16.124.52:4444/"
+    remote_url = ENV['SELENIUM_GRID_HOST'] ||= "http://192.168.1.68:4444"
 
     @browser = case browser_type.downcase
                when 'chrome'
                  chrome_driver_path = "#{File.dirname(__FILE__)}/../driver/chromedriver.exe"
                  Selenium::WebDriver::Chrome::Service.driver_path = chrome_driver_path
                  Watir::Browser.new(:chrome, headless: false)
+                when 'edge'
+                  edge_driver_path = "#{File.dirname(__FILE__)}/../driver/msedgedriver.exe"
+                  Selenium::WebDriver::Chrome::Service.driver_path = edge_driver_path
+                  Watir::Browser.new(:edge, headless: false)
                when 'chrome_headless'
                  Watir::Browser.new(:chrome, headless: true)
                when 'chrome_remote'

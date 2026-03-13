@@ -7,26 +7,26 @@
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
-    "bootstrap": "^5.0.1",
+    "bootstrap": "^5.3.8",
     "connect-flash": "^0.1.1",
-    "connect-mongo": "^4.4.1",
-    "cookie-parser": "~1.4.4",
+    "connect-mongo": "^6.0.0",
+    "cookie-parser": "~1.4.7",
     "csurf": "^1.11.0",
-    "debug": "~2.6.9",
-    "dotenv": "^8.2.0",
-    "express": "~4.16.1",
-    "express-handlebars": "^6.0.6",
-    "express-session": "^1.17.1",
-    "express-validator": "^6.14.2",
-    "hbs": "^4.1.2",
-    "http-errors": "~1.6.3",
-    "mongoose": "^5.10.1",
-    "morgan": "~1.9.1",
-    "passport": "^0.6.0",
+    "debug": "~4.4.3",
+    "dotenv": "^17.3.1",
+    "express": "~5.2.1",
+    "express-handlebars": "^8.0.6",
+    "express-session": "^1.19.0",
+    "express-validator": "^7.3.1",
+    "hbs": "^4.2.0",
+    "http-errors": "~2.0.1",
+    "mongoose": "^9.3.0",
+    "morgan": "~1.10.1",
+    "passport": "^0.7.0",
     "passport-local": "^1.0.0",
-    "stripe": "^8.191.0"
+    "stripe": "^20.4.1"
   },
   "devDependencies": {
-    "handlebars": "^4.5.0"
+    "handlebars": "^4.7.8"
   }
 }
